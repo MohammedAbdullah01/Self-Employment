@@ -1,5 +1,8 @@
 
 <div class="col-12">
+    <x-form.input-lable-error type="text" name="name" placeholder="Full Name" />
+</div>
+<div class="col-12">
     <x-form.input-lable-error type="email" name="email" placeholder="E-mail" />
 </div>
 

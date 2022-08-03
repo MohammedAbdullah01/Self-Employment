@@ -3,13 +3,9 @@
 namespace App\Http\Controllers\Api\Client;
 
 use App\Http\Controllers\Controller;
-use App\Models\Categorie;
 use App\Models\Client;
-use App\Models\Project;
-use App\Models\User;
-use App\Http\Requests\AuthRequest;
 use App\Models\VerifyUser;
-use App\Repositories\AuthRepository;
+use App\Repositories\Interfaces\AuthRepository;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
@@ -124,9 +120,9 @@ class AuthTokensCotroller extends Controller
     public function sendResetLink(Request $request)
     {
 
-        $request->validate([
-            'email'    => 'required|email|exists:clients,email',
-        ]);
+        // $request->validate([
+        //     'email'    => 'required|email|exists:clients,email',
+        // ]);
 
         $this->auth->storeResetLink(
             $request,
@@ -151,13 +147,13 @@ class AuthTokensCotroller extends Controller
 
     public function confirmPasswordUpdate(Request $request)
     {
-        $request->validate([
+        // $request->validate([
 
-            'email'                 => 'required|email|string|exists:clients,email',
-            'password'              => 'required|string|min:8|confirmed',
-            'password_confirmation' => 'required',
-        ]);
-        $check_token = $this->auth->confirmPassword($request, $this->client);
+        //     'email'                 => 'required|email|string|exists:clients,email',
+        //     'password'              => 'required|string|min:8|confirmed',
+        //     'password_confirmation' => 'required',
+        // ]);
+        $check_token = $this->auth->confirmPassword($request, 'clients', $this->client);
 
         if ($check_token) {
 
@@ -165,7 +161,6 @@ class AuthTokensCotroller extends Controller
                 'success' => 'Successfully Your Password Has Been Change :)',
                 '_link' => route('api.client.login')
             ]);
-            
         } else {
 
             return response()->json([

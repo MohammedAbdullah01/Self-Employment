@@ -14,7 +14,7 @@
             </div>
             <div class="modal-body">
                 <!-- Change Password Form -->
-                <form action="{{ route('user.change.Password') }}" method="post">
+                <form action="{{ route('client.change.Password') }}" method="post">
                     @csrf
                     @method('PUT')
 

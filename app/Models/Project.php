@@ -10,7 +10,7 @@ class Project extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['title', 'client_id', 'category_id', 'description','activate' , 'status', 'skills', 'budget', 'type', 'delivery_period'];
+    protected $fillable = ['title', 'slug'  ,'client_id', 'category_id', 'description','activate' , 'status', 'skills', 'budget', 'type', 'delivery_period'];
 
 
 
@@ -122,7 +122,7 @@ class Project extends Model
     }
 
     public function getdeliveryPeriodProjectAttribute()
-    { 
+    {
         $delivery_period = $this->delivery_period;
 
         if ($delivery_period) {

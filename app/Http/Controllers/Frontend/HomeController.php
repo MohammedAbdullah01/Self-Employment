@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
 use App\Models\Project;
+use Barryvdh\Debugbar\Facades\Debugbar;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -17,7 +18,7 @@ class HomeController extends Controller
     {
 
         $projects = Project::with('comments' , 'client')->withCount('comments')->latest()->paginate();
-        // dd( $projects);
+        Debugbar::debug($projects);
         return view('frontend.projects' , compact('projects'));
     }
 

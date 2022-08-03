@@ -19,7 +19,7 @@ class CreateFreelancersTable extends Migration
             $table->enum('gander', ['Male','Female'])->nullable();
             $table->string('phone')->nullable();
             $table->string('title_job')->nullable();
-            $table->string('skills');
+            $table->string('skills')->nullable();
             $table->string('country')->nullable();
             $table->boolean('verified')->default(0);
             $table->unsignedFloat('hourly_rate');

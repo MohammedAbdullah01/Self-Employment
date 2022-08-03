@@ -16,9 +16,9 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->app->bind(AuthRepository::class, function ($app) {
-            return new Auth;
-        });
+        // $this->app->bind(AuthRepository::class, function ($app) {
+        //     return new Auth;
+        // });
     }
 
     /**

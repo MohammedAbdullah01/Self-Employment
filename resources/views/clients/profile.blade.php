@@ -44,7 +44,7 @@
                 <div class="col-md-6 mb-5">
                     <h3>{{ $client->name }}</h3>
                     <h6 class="text-color">{{ $client->company }}</h6>
-                    <p class="mb-5">{{ Str::limit($client->about_me, 100, '...') }}</p>
+                    <p class="mb-5">{{ Str::limit($client->profile->about_me, 100, '...') }}</p>
                     <div class="row">
                         <div class="col-md-6 mb-5 mb-md-0">
                             <h4 class="mb-4">{{ __('Information About Me') }}</h4>
@@ -60,28 +60,28 @@
                                 <li class="mb-3">
                                     <a class="text-color">
                                         <i class="ti-mobile mr-2"></i>
-                                        {{ $client->phone }}
+                                        {{ $client->profile->phone }}
                                     </a>
                                 </li>
 
                                 <li class="mb-3">
                                     <a class="text-color">
                                         <i class="ti-location-pin mr-2"></i>
-                                        {{ $client->country }}
+                                        {{ $client->profile->country }}
                                     </a>
                                 </li>
 
                                 <li class="mb-3">
                                     <a class="text-color">
                                         <i class="ti-home mr-2"></i>
-                                        {{ $client->company }}
+                                        {{ $client->profile->company }}
                                     </a>
                                 </li>
 
                                 <li class="mb-3">
                                     <a class="text-color">
                                         <i class="ti-world mr-2"></i>
-                                        {{ $client->link }}
+                                        {{ $client->profile->link }}
                                     </a>
                                 </li>
                             </ul>

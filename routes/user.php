@@ -54,10 +54,6 @@ Route::prefix('user')->name('user.')->group(function () {
 
 
 
-
-
-
-
     Route::middleware(['auth:web','is_user_verify_email' ,'history'])->group(function () {
 
         Route::get('profile/{name}'                     , [ProfileController::class, 'profile'])

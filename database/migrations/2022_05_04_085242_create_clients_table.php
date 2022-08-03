@@ -16,13 +16,9 @@ class CreateClientsTable extends Migration
         Schema::create('clients', function (Blueprint $table) {
             $table->id();
             $table->string('name')->unique();
+            $table->string('slug')->unique();
             $table->string('email')->unique();
-            $table->string('company')->nullable();
-            $table->string('phone')->nullable();
-            $table->string('country')->nullable();
-            $table->string('link')->nullable();
             $table->string('avatar')->default('dufault.png');
-            $table->text('about_me')->nullable();
             $table->timestamp('email_verified_at')->nullable();
             $table->boolean('email_verified')->default(0);
             $table->string('password');

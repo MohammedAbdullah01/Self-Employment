@@ -38,7 +38,7 @@
                         @csrf
                         @method('PUT')
 
-                        @include('inc.__forgot-password')
+                        @include('inc.__confirm-password')
 
                         <div class="col-12">
                             <a class="text-uppercase text-color p-sm-2 py-2 px-0 d-inline-block"

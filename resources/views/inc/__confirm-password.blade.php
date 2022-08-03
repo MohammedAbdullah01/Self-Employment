@@ -9,7 +9,7 @@
 </div>
 
 <div class="col-12">
-    <x-form.input-lable-error type="password" name="password" placeholder="Password" />
+    <x-form.input-lable-error type="password" name="password_confirmation" placeholder="Confirm Password " />
 </div>
 
 <div class="col-12">

@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use Illuminate\Support\Str;
 
 class Client extends Authenticatable
 {
@@ -14,6 +15,7 @@ class Client extends Authenticatable
 
     protected $fillable = [
         'name',
+        'slug',
         'phone',
         'company',
         'country',
@@ -30,16 +32,26 @@ class Client extends Authenticatable
         'remember_token',
     ];
 
-    public function client()
+
+    protected static function booted()
     {
-        return $this->hasOne(Client::class)->withDefault([
-            'phone'    => 'Empty',
-            'company'  => 'Empty',
-            'country'  => 'Empty',
-            'about_me' => 'Empty',
-            'link'     => 'Empty',
+        static::creating(function (Client $client) {
+            $client->slug = Str::slug($client->name);
+        });
+    }
+
+    public function profile()
+    {
+        return $this->hasOne(ClientProfile::class )->withDefault([
+            'phone'    => '-----',
+            'company'  => '-----',
+            'country'  => '-----',
+            'about_me' => '-----',
+            'link'     => '-----',
         ]);
     }
+
+
 
     public function projects()
     {
@@ -49,7 +61,7 @@ class Client extends Authenticatable
     public function getPictureClientAttribute()
     {
         if ($this->avatar == "dufault.png") {
-            return asset('frontend/assets/img/dufault.png');
+            return asset('frontend/images/dufault.png');
         }
         return asset('storage/clients/' . $this->avatar);
     }

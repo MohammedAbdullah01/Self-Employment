@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use Illuminate\Support\Str;
 
 class User extends Authenticatable
 {
@@ -32,6 +33,7 @@ class User extends Authenticatable
      */
     protected $fillable = [
         'name',
+        'slug',
         'email',
         'avatar',
         'password',
@@ -61,19 +63,31 @@ class User extends Authenticatable
     public function profile()
     {
         return $this->hasOne(Freelancer::class)->withDefault([
-            'title_job'   => 'Empty',
-            'skills'      => 'Empty',
-            'gander'      => 'Empty',
-            'country'     => 'Empty',
-            'hourly_rate' => 'Empty',
-            'phone'       => 'Empty',
-            'github'      => 'Empty',
-            'twitter'     => 'Empty',
-            'linkedin'    => 'Empty',
-            'hourlyRates' => 'Empty',
-            'country'     => 'Empty',
+            'title_job'   => '-----',
+            'skills'      => '-----',
+            'gander'      => '-----',
+            'country'     => '-----',
+            'hourly_rate' => '-----',
+            'phone'       => '-----',
+            'github'      => '-----',
+            'twitter'     => '-----',
+            'linkedin'    => '-----',
+            'hourlyRates' => '-----',
+            'country'     => '-----',
         ]);
     }
+
+
+    protected static function booted()
+    {
+        static::creating(function (User $user) {
+            $user->slug = Str::slug($user->name);
+        });
+    }
+
+
+
+
 
 
     public function comments()
@@ -130,7 +144,7 @@ class User extends Authenticatable
     public function getPictureFreelancerAttribute()
     {
         if ($this->avatar == "dufault.png") {
-            return asset('frontend/assets/img/dufault.png');
+            return asset('frontend/images/dufault.png');
         }
         return asset('storage/users/' . $this->avatar);
     }

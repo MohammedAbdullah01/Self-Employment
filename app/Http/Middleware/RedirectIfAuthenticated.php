@@ -29,11 +29,11 @@ class RedirectIfAuthenticated
                 };
 
                 if ($guard === 'client'){
-                    return redirect()->route('client.profile' , Auth::guard('client')->user()->name);
+                    return redirect()->route('client.profile' , Auth::guard('client')->user()->slug);
                 };
 
                 if ($guard === 'web'){
-                    return redirect()->route('user.profile', Auth::guard('web')->user()->name);
+                    return redirect()->route('user.profile', Auth::guard('web')->user()->slug);
                 };
 
                 return redirect(RouteServiceProvider::HOME);
