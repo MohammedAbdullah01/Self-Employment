@@ -156,7 +156,7 @@
                 @forelse ($latestwork as $work)
                     <div class="col-lg-4 col-sm-6 mb-5">
                         <div class="card p-0 border-primary rounded-0 hover-shadow">
-                            <img class="card-img-top rounded-0" src="{{ $work->pictureLatestWorks }}" alt="course thumb">
+                            <img class="card-img-top rounded-0" src="{{ $work->pictureLatestWorks }}" height="300px" alt="course thumb">
                             <div class="card-body">
                                 <ul class="list-inline mb-2">
                                     <li class="list-inline-item">
@@ -184,7 +184,7 @@
                         </div>
                     </div>
                 @empty
-                    <div class=" alert alert-danger text-center mt-3 mb-2 m-auto">
+                    <div class=" alert alert-danger text-center mt-3 w-50 mb-2 m-auto">
                         <b>{{ __('There Are No Works ') }}</b> <i class="ti-face-sad"></i>
                     </div>
                 @endforelse
@@ -220,7 +220,7 @@
                                             class="h4 mb-3 d-block mt-2">
                                             {{ $comment->title }}
                                         </a>
-                                        <p class="mb-0">{{ Str::limit($comment->description, 40, '...') }}</p>
+                                        <p class="mb-0">{{ Str::limit($comment->pivot->comment, 40, '...') }}</p>
                                         <p>
                                             <a class="btn btn-primary" data-bs-toggle="collapse" href="#comment_project"
                                                 role="button" aria-expanded="false" aria-controls="comment_project">

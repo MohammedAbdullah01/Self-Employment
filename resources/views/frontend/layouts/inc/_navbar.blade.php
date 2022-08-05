@@ -24,15 +24,15 @@
                                 <img src="{{ Auth::guard('web')->user()->PictureFreelancer }}" height="30"
                                     width="40" alt="Profile" class="rounded-circle">
                                 <a class="text-uppercase text-color p-sm-2 py-2 px-0 d-inline-block"
-                                    href="{{ route('user.profile', Auth::guard('web')->user()->name) }}">{{ Auth::guard('web')->user()->name }}</a>
-                                    <form class="d-inline-block" action="{{ route('user.logout') }}" method="post">
-                                        @csrf
-                                        @method('POST')
-                                        <button class="btn btn-outline-danger btn-sm" type="submit">
-                                            <i class="ti-lock"></i>
-                                            {{'Log Out'}}
-                                        </button>
-                                    </form>
+                                    href="{{ route('user.profile', Auth::guard('web')->user()->slug) }}">{{ Auth::guard('web')->user()->name }}</a>
+                                <form class="d-inline-block" action="{{ route('user.logout') }}" method="post">
+                                    @csrf
+                                    @method('POST')
+                                    <button class="btn btn-outline-danger btn-sm" type="submit">
+                                        <i class="ti-lock"></i>
+                                        {{ 'Log Out' }}
+                                    </button>
+                                </form>
                             </li>
                         @endif
 
@@ -41,22 +41,24 @@
                                 <img src="{{ Auth::guard('client')->user()->PictureClient }}" height="30"
                                     width="40" alt="Profile" class="rounded-circle">
                                 <a class="text-uppercase text-color p-sm-2 py-2 px-0 d-inline-block"
-                                    href="{{ route('client.profile', Auth::guard('client')->user()->name) }}">{{ Auth::guard('client')->user()->name }}</a>
-                                    <form class="d-inline-block" action="{{ route('client.logout') }}" method="post">
-                                        @csrf
-                                        @method('POST')
-                                        <button class="btn btn-outline-danger btn-sm" type="submit">
-                                            <i class="ti-lock"></i>
-                                            {{'Log Out'}}
-                                        </button>
-                                    </form>
+                                    href="{{ route('client.profile', Auth::guard('client')->user()->slug) }}">{{ Auth::guard('client')->user()->name }}</a>
+                                <form class="d-inline-block" action="{{ route('client.logout') }}" method="post">
+                                    @csrf
+                                    @method('POST')
+                                    <button class="btn btn-outline-danger btn-sm" type="submit">
+                                        <i class="ti-lock"></i>
+                                        {{ 'Log Out' }}
+                                    </button>
+                                </form>
                             </li>
                         @endif
                         @if (!Auth::guard('client')->check() && !Auth::guard('web')->check())
                             <li class="list-inline-item"><a
-                                    class="text-uppercase text-color p-sm-2 py-2 px-0 d-inline-block" href="{{route('user.login')}}">login</a></li>
+                                    class="text-uppercase text-color p-sm-2 py-2 px-0 d-inline-block"
+                                    href="{{ route('user.login') }}">login</a></li>
                             <li class="list-inline-item"><a
-                                    class="text-uppercase text-color p-sm-2 py-2 px-0 d-inline-block" href="{{route('user.register')}}" >register</a></li>
+                                    class="text-uppercase text-color p-sm-2 py-2 px-0 d-inline-block"
+                                    href="{{ route('user.register') }}">register</a></li>
                         @endif
 
                     </ul>
@@ -115,6 +117,24 @@
                                         <li><a class="dropdown-item" href="#!">Sub Menu 02</a></li>
                                         <li><a class="dropdown-item" href="#!">Sub Menu 03</a></li>
                                     </ul>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="nav-item dropdown view">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                {{ __('Pages') }}
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <li>
+                                    <a class="dropdown-item" href="{{ route('client.register') }}">
+                                        {{ __('Register As Client') }}
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" href="{{ route('client.login') }}">
+                                        {{ __('Login As Client') }}
+                                    </a>
                                 </li>
                             </ul>
                         </li>

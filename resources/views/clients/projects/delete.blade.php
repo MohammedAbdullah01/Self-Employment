@@ -15,7 +15,7 @@
                     aria-label="Close"><i class="ti-close"></i></button>
             </div>
             <div class="modal-body">
-                <form action=" {{ route('client.delete.project', $project->id) }} " method="post">
+                <form action=" {{ route('client.delete.project', $project) }} " method="post">
                     @csrf
                     @method('DELETE')
 

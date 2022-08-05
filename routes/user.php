@@ -68,7 +68,7 @@ Route::prefix('user')->name('user.')->group(function () {
         Route::put('profile/update/{id}/work'           , [LatestWorkController::class, 'updateLatestWork'])
             ->name('update.work');
 
-        Route::put('profile/change/Password'           , [ProfileController::class, 'changePassword'])
+        Route::put('profile/change/Password'            , [ProfileController::class, 'changePassword'])
             ->name('change.Password');
 
         Route::delete('profile/delete/{id}/work'        , [LatestWorkController::class, 'destroyLatestWork'])
@@ -82,13 +82,13 @@ Route::prefix('user')->name('user.')->group(function () {
 
 
 
-            Route::post('comment/store/{project}'       , [CommentController::class, 'store'])
+        Route::post('comment/{project}/store'           , [CommentController::class, 'store'])
             ->name('comment.store');
 
-            Route::put('comment/update/{id}'            , [CommentController::class, 'update'])
+        Route::put('comment/{comment}/update'           , [CommentController::class, 'update'])
             ->name('comment.update');
 
-            Route::delete('comment/delete/{id}'         , [CommentController::class, 'destroy'])
+        Route::delete('comment/{comment}/delete'        , [CommentController::class, 'destroy'])
             ->name('comment.delete');
     });
 });

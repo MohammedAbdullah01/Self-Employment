@@ -4,15 +4,16 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Auth;
 
 class Latestwork extends Model
 {
 
+    use HasFactory;
     protected $fillable =
     [
         'user_id', 'title', 'main_photo', 'description'
     ];
-    use HasFactory;
 
     public function user()
     {

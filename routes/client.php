@@ -10,7 +10,7 @@ Route::prefix('client')->name('client.')->group(function () {
 
     Route::get('v/profile/{name}'       , [ProfileController::class, 'profile'])
             ->name('view.profile');
-            
+
     Route::middleware(['guest:web', 'guest:client'  , 'history'])->group(function () {
 
         Route::get('login'                      , [ClientController::class  , 'showLogin'])
@@ -67,19 +67,19 @@ Route::prefix('client')->name('client.')->group(function () {
         Route::get('projects'                   , [ProjectController::class , 'index'])
             ->name('create.projects');
 
-        Route::get('project/create'             , [ProjectController::class , 'create'])
-            ->name('create.project');
+        // Route::get('project/create'             , [ProjectController::class , 'create'])
+        //     ->name('create.project');
 
         Route::post('project/store'             , [ProjectController::class , 'store'])
             ->name('store.project');
 
-        Route::get('project/edit/{slug}'        , [ProjectController::class , 'edit'])
-            ->name('edit.project');
+        // Route::get('project/edit/{slug}'        , [ProjectController::class , 'edit'])
+        //     ->name('edit.project');
 
-        Route::put('project/update/{slug}'      , [ProjectController::class , 'update'])
+        Route::put('project/update/{project}'      , [ProjectController::class , 'update'])
             ->name('update.project');
 
-        Route::delete('project/delete/{id}'     , [ProjectController::class , 'destroy'])
+        Route::delete('project/delete/{project}'     , [ProjectController::class , 'destroy'])
             ->name('delete.project');
 
         Route::post('logout'                    , [ClientController::class, 'destroy'])

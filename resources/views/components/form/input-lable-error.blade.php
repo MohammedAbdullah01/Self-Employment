@@ -5,7 +5,7 @@
 {{$attributes->class(['form-control mb-3','is-invalid' => $errors->has($name)])}}
 >
 @error($name)
-    <p class="invalid-feedback">
+    <b class="invalid-feedback">
         {{ $message }}
-    </p>
+    </b>
 @enderror

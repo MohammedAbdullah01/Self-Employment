@@ -3,13 +3,11 @@
 namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Auth;
 use Brian2694\Toastr\Facades\Toastr;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Repositories\Interfaces\ProfileRepository;
-use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 
 class ProfileController extends Controller
@@ -25,17 +23,14 @@ class ProfileController extends Controller
     }
 
 
-
     public function profile($slug)
     {
+        $user               = $this->userRepo->getProfile($this->user, $slug, 'latestwork');
 
+        $latestwork         =  $user->latestwork()->latest()->paginate();
 
-
-        $user = $this->userRepo->getProfile($this->user, $slug, 'latestwork');
-
-
-        $latestwork =  $user->latestwork()->latest()->paginate();
         $commented_projects =  $user->commendProjects()->withCount('comments')->latest()->paginate();
+
         return view('users.profile', compact('user', 'latestwork', 'commented_projects'));
     }
 
@@ -70,6 +65,8 @@ class ProfileController extends Controller
 
         return $this->userRepo->updateProfile($this->user, 'web',  $request, 'users', 'user_id');
     }
+
+
 
     public function changePassword(Request $request)
     {

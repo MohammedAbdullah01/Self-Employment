@@ -22,7 +22,7 @@
                     <div class="mb-3">
                         <div class="text-center" style="margin-top:8px">
                             <img class="img-thumbnail"
-                                src="{{ asset('storage/freelancer/latestwork/' . $work->main_photo) }}"
+                                src="{{ $work->pictureLatestWorks }}"
                                 alt="{{ $work->main_photo }}" width="200px" height="100px">
                         </div>
                         <div class="modal-body text-danger text-center">

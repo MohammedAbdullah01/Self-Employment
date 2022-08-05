@@ -6,7 +6,6 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\AuthRequest;
 use App\Models\Client;
 use App\Repositories\Interfaces\AuthRepository;
-use Brian2694\Toastr\Facades\Toastr;
 use Illuminate\Http\Request;
 
 class ClientController extends Controller

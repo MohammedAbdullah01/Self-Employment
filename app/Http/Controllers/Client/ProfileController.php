@@ -7,6 +7,7 @@ use App\Models\Categorie;
 use Illuminate\Http\Request;
 use App\Models\Client;
 use App\Models\Project;
+use App\Models\Tag;
 use App\Repositories\Interfaces\ProfileRepository;
 use Brian2694\Toastr\Facades\Toastr;
 use Illuminate\Support\Facades\Auth;
@@ -24,7 +25,7 @@ class ProfileController extends Controller
     public function __construct(ProfileRepository $clientRepo, Client $client)
     {
         $this->clientRepo = $clientRepo;
-        $this->client = $client;
+        $this->client     = $client;
     }
 
     protected function categories()
@@ -34,7 +35,7 @@ class ProfileController extends Controller
 
     public function profile($slug)
     {
-        $client = $this->clientRepo->getProfile($this->client, $slug, 'projects');
+        $client   = $this->clientRepo->getProfile($this->client, $slug, 'projects');
 
         $projects =  $client->projects()->withcount('comments')->latest()->paginate(8);
 
@@ -43,7 +44,7 @@ class ProfileController extends Controller
         $budgets    = Project::budgets();
         $types      = Project::types();
         $categories = $this->categories();
-        $tags       = [];
+        $tags       = Tag::all();
 
         return view('clients.profile', compact(
             'client',

@@ -10,8 +10,8 @@
         <div class="modal-content p-3 mb-2 bg-white text-primary">
             <div class="modal-header">
                 <h5 class="modal-title" id="exampleModalLabel">{{ __('Edit Product') }}</h5>
-                <button type="button" class="btn btn-light" data-bs-dismiss="modal"
-                    aria-label="Close"><i class="ti-close"></i></button>
+                <button type="button" class="btn btn-light" data-bs-dismiss="modal" aria-label="Close"><i
+                        class="ti-close"></i></button>
             </div>
             <div class="modal-body">
                 <form action="{{ route('user.update.work', $work->id) }}" method="post" enctype="multipart/form-data">
@@ -26,33 +26,19 @@
                             :value="$work->description" />
 
                         <x-form.input-lable-error lable="Project Main Image" name="main_photo" type="file" />
-                        <img src="{{ asset('storage/freelancer/latestwork/' . $work->main_photo) }}"
-                            class="img-thumbnail" alt="..." width="100%" height="250px">
+                        <img src="{{ $work->pictureLatestWorks }}" class="img-thumbnail" alt="..." width="100%"
+                            height="250px">
 
-                        @if (count($work->photos) < 6)
-                            <x-form.input-lable-error lable="Project Sub Images" name='sub_images[]' type="file"
-                                multiple />
-                            @error('sub_images.*')
-                                <span class="text-danger" role="alert">
-                                    <strong>
-                                        {{ $message }}
-                                    </strong>
-                                </span>
-                            @enderror
-                        @endif
+                        <x-form.input-lable-error lable="Project Sub Images" name='sub_images[]' type="file"
+                            multiple />
 
                         <div class="card">
 
                             <div class="card-body">
                                 @forelse ($work->photos as $image)
                                     <div class="card card text-white bg-dark mb-3 mt-2">
-                                        <img src="{{ asset('storage/freelancer/latestwork/' . $image->sub_images) }}"
-                                            class="card-img-top" height="250px" width="100%" alt="...">
-                                        <a class="btn btn-outline-danger btn-sm "
-                                            href="{{ route('user.destroy.work.sub_images', $image->id) }}" onclick="event.preventDefault();
-                                                            document.getElementById('remove-photo').submit();">
-                                            {{ __('X') }}
-                                        </a>
+                                        <img src="{{ $image->picturesLatestWorks }}" class="card-img-top" height="300px"
+                                            width="100%" alt="...">
                                     </div>
                                 @empty
 
@@ -73,13 +59,6 @@
                         </button>
                     </div>
                 </form>
-                @if (count($work->photos) > 0)
-                    <form id="remove-photo" action="{{ route('user.destroy.work.sub_images', $image->id) }}"
-                        method="POST" class="d-none">
-                        @csrf
-                        @method('DELETE')
-                    </form>
-                @endif
             </div>
         </div>
     </div>

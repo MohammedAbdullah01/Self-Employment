@@ -185,7 +185,7 @@
 <div class="modal fade " id="edite_projects{{ $project->id }}" data-bs-backdrop="static" data-bs-keyboard="false"
     tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">
-        <form class="text-start" action="{{ route('client.update.project', $project->title) }} " method="post">
+        <form class="text-start" action="{{ route('client.update.project', $project->id) }} " method="post">
             @csrf
             @method('PUT')
 
@@ -237,7 +237,7 @@
                                 ',',
                                 $project
                                     ->tags()
-                                    ->pluck('name')
+                                    ->pluck('name' , 'id')
                                     ->toArray(),
                             )"
                                 placeholder="Define Keywords To Get Faster Search Results." />
