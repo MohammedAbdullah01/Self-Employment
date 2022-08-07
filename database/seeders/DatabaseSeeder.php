@@ -19,6 +19,6 @@ class DatabaseSeeder extends Seeder
         Categorie::factory(3)->create();
 
 
-        // $this->call(AdminSeeder::class);
+        $this->call(AdminSeeder::class);
     }
 }
