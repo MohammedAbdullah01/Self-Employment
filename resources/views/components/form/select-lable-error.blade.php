@@ -1,4 +1,4 @@
-@props(['lable' =>'', 'name', 'selected' => '', 'options' => []])
+@props(['lable' => '', 'name', 'selected' => '', 'options' => []])
 
 
 <label for="recipient-name" class="col-form-label float-left">{{ __($lable) }}</label>

@@ -3,6 +3,7 @@
 namespace App\Repositories;
 
 use App\Models\Latestwork;
+use App\Models\User;
 use App\Repositories\Interfaces\LatesWorkRepository;
 use Brian2694\Toastr\Facades\Toastr;
 use Illuminate\Support\Facades\Auth;
@@ -11,15 +12,27 @@ use Illuminate\Support\Facades\Validator;
 
 class LatesWork implements LatesWorkRepository
 {
+    protected $latestWorkModel;
 
-    public function index()
+    public function __construct(Latestwork $latestWorkModel)
     {
+        $this->latestWorkModel = $latestWorkModel;
     }
+
+    public function getlatestWorks()
+    {
+        $latestwork =  $this->latestWorkModel::with('user', 'photos', 'category')->latest()->paginate();
+
+        return $latestwork;
+    }
+
+
     public function store($request)
     {
 
         $validator = Validator::make($request->all(), [
             "title"        => 'required|between:5,50|string',
+            "category_id"  => 'required|exists:categories,id|numeric',
             "description"  => 'required|between:10,300|string',
             "main_photo"   => 'required|image|mimes:jpeg,png,jpg',
             "sub_images.*" => 'image|mimes:jpeg,png,jpg',
@@ -42,10 +55,11 @@ class LatesWork implements LatesWorkRepository
             }
         }
 
-        $latestwork =  Latestwork::create([
+        $latestwork =  $this->latestWorkModel::create([
 
             'user_id'     => Auth::guard('web')->id(),
             'title'       => $request->post('title'),
+            'category_id' => $request->post('category_id'),
             'description' => $request->post('description'),
             'main_photo'  => $name_main_photo,
         ]);
@@ -71,10 +85,11 @@ class LatesWork implements LatesWorkRepository
         return redirect()->back();
     }
 
-    public function update($request, $id)
+    public function update($request, $latestwork)
     {
         $validator = Validator::make($request->all(), [
             "title"        => 'required|between:5,50|string',
+            "category_id"  => 'required|exists:categories,id|numeric',
             "description"  => 'required|between:10,300|string',
             "main_photo"   => 'image|mimes:jpeg,png,jpg',
             "sub_images*" => 'image|mimes:jpeg,png,jpg',
@@ -85,7 +100,7 @@ class LatesWork implements LatesWorkRepository
             return redirect()->back()->withErrors($validator)->withInput($request->all());
         }
 
-        $latestwork =  Latestwork::where('user_id', Auth::guard('web')->id())->findOrFail($id);
+        $latestwork =  $this->latestWorkModel::where('user_id', Auth::guard('web')->id())->findOrFail($latestwork);
 
         if ($request->hasFile('main_photo') && $request->file('main_photo')->isValid()) {
 
@@ -107,6 +122,7 @@ class LatesWork implements LatesWorkRepository
         $latestwork->update([
             'title'       => $request->post('title'),
             'description' => $request->post('description'),
+            'category_id' => $request->post('category_id'),
 
         ]);
 
@@ -144,10 +160,10 @@ class LatesWork implements LatesWorkRepository
         return redirect()->back();
     }
 
-    public function destroy($id)
+    public function destroy($latestwork)
     {
 
-        $latestwork = Latestwork::where('user_id', Auth::guard('web')->id())->findOrFail($id);
+        $latestwork = $this->latestWorkModel::findOrFail($latestwork);
         $search_path_main_picture = public_path('storage/users/latestwork/'  . $latestwork->main_photo);
 
         if (File::exists($search_path_main_picture)) {

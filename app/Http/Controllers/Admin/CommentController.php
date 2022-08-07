@@ -4,24 +4,26 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Comment;
-use Brian2694\Toastr\Facades\Toastr;
-use Illuminate\Http\Request;
+use App\Repositories\Interfaces\CommentRepository;
 
 class CommentController extends Controller
 {
-    public function index()
+    private $commentRepo;
+
+    public function __construct(CommentRepository $commentRepo)
     {
-        $comments = Comment::with('project','user')->latest()->paginate();
-
-            return view('admin.pages.comments.index' , compact('comments'));
-
+        $this->commentRepo = $commentRepo;
     }
 
-    public function destroy($id)
+    public function index()
     {
-        $comment = Comment::findOrFail($id);
-        $comment->delete();
-        Toastr::success("Successfully Deleted Comment :)");
-        return redirect()->back();
+        $comments = $this->commentRepo->index();
+
+        return view('admin.pages.comments.index', compact('comments'));
+    }
+
+    public function destroy(Comment $comment)
+    {
+        return $this->commentRepo->destroy($comment);
     }
 }

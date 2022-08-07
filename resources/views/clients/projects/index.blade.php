@@ -17,7 +17,7 @@
         </div>
     </div>
 
-
+    {{-- My Projects --}}
     <div class="col-lg-12">
         @forelse ($projects as $project)
             <div class="card">
@@ -62,7 +62,7 @@
                                         <li class="list-group-item ">
                                             {{ __('Category') }}
                                             <span class="float-right text-primary">
-                                                {{$project->category->parent->name}} /  {{$project->category->name }}
+                                                {{ $project->category->parent->name }} / {{ $project->category->name }}
                                             </span>
                                         </li>
                                         <li class="list-group-item  ">
@@ -75,18 +75,18 @@
                                         </li>
                                     </ul>
                                     <p class="mb-0">
-                                        <form action="{{ route('client.delete.project', $project->id) }}" method="post">
-                                            <button class="btn btn-outline-primary btn-sm mt-2 " type="button"
-                                                data-bs-toggle="collapse" data-bs-target="#more_details" aria-expanded="false"
-                                                aria-controls="collapseWidthExample">
-                                                {{ __('More Details ') }}
-                                            </button>
-                                            @csrf
-                                            @method('DELETE')
-                                            <button class="btn btn-outline-danger btn-sm mt-2" type="submit">
-                                                {{ __('Remove') }}
-                                            </button>
-                                        </form>
+                                    <form action="{{ route('client.delete.project', $project->id) }}" method="post">
+                                        <button class="btn btn-outline-primary btn-sm mt-2 " type="button"
+                                            data-bs-toggle="collapse" data-bs-target="#more_details" aria-expanded="false"
+                                            aria-controls="collapseWidthExample">
+                                            {{ __('More Details ') }}
+                                        </button>
+                                        @csrf
+                                        @method('DELETE')
+                                        <button class="btn btn-outline-danger btn-sm mt-2" type="submit">
+                                            {{ __('Remove') }}
+                                        </button>
+                                    </form>
                                     </p>
                                     <div>
                                         <div class="collapse collapse-horizontal" id="more_details">

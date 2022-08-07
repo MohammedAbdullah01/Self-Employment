@@ -9,7 +9,7 @@ class ClientProfile extends Model
 {
     use HasFactory;
 
-    public $table = "client_profils";
+    public $table = "client_profile";
     protected $fillable = ['client_id' , 'company',	'phone',	'country',	'link',	'about_me'];
 
 

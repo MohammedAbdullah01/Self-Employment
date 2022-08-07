@@ -4,7 +4,7 @@
 @section('content')
 
     <!-- page title -->
-    <section class="page-title-section overlay" data-background="{{asset('frontend/images/backgrounds/page-title.jpg')}}">
+    <section class="page-title-section overlay" data-background="{{ asset('frontend/images/backgrounds/page-title.jpg') }}">
         <div class="container">
             <div class="row">
                 <div class="col-md-8">

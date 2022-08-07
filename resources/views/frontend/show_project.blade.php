@@ -3,8 +3,6 @@
 @section('title', 'Show | project')
 @section('content')
 
-
-
     <!-- page title -->
     <section class="page-title-section overlay" data-background="{{ asset('frontend/images/backgrounds/page-title.jpg') }}">
         <div class="container">
@@ -50,12 +48,12 @@
                             </div>
                         </div>
 
-
+                        {{-- Project Details --}}
                         <div>
-                            <h3 class="mb-4 text-primary text-opacity-50">{{ $project->title }}</h3>
+                            <h3 class="mb-4 m-2" st>{{ $project->title }}</h3>
                             {{-- Owner Of The Project --}}
                             <p>
-                                <a href="{{ route('client.view.profile', $project->client->name) }}" class="mb-4">
+                                <a href="{{ route('client.view.profile', $project->client->slug) }}" class="mb-4">
                                     <img src="{{ $project->client->PictureClient }}" height="50" width="50"
                                         class="rounded-circle">
                                     {{ Str::title($project->client->name) }}
@@ -101,29 +99,29 @@
                                     <li>
                                         <span class="text-info ">{{ __('Status') }}</span>
                                         <span
-                                            class="float-right {{ $project->statusProject }}">{{ $project->status }}</span>
+                                            class="float-end {{ $project->statusProject }}">{{ $project->status }}</span>
                                     </li>
 
                                     <li>
                                         <span class="text-info">{{ __('Budget') }}</span>
-                                        <span class="float-right">{{ $project->budget }}</span>
+                                        <span class="float-end">{{ $project->budget }}</span>
                                     </li>
 
                                     <li>
                                         <span class="text-info">{{ __('Type') }}</span>
-                                        <span class="float-right">{{ $project->type }}</span>
+                                        <span class="float-end">{{ $project->type }}</span>
                                     </li>
 
                                     <li>
                                         <span class="text-info">{{ __('Delivery Period') }}</span>
-                                        <span class="float-right">{{ $project->deliveryPeriodProject }}</span>
+                                        <span class="float-end">{{ $project->deliveryPeriodProject }}</span>
                                     </li>
 
 
                                     <li>
                                         <span class="text-info">{{ __('Number Of Offers') }}</span>
                                         <span
-                                            class="float-right">{{ $project->comments_count ? $project->comments_count : 'There Are No Offers.' }}</span>
+                                            class="float-end">{{ $project->comments_count ? $project->comments_count : 'There Are No Offers.' }}</span>
                                     </li>
                                 </ul>
                             </div>
@@ -168,48 +166,6 @@
                             @endif
                             <hr>
 
-                            {{-- Project Presentations --}}
-                            <section class="section pt-3">
-                                <div class="container">
-                                    <div class="row">
-                                        <div class="col-12">
-                                            <h3 class="mb-3">{{ __('Presentations') }}</h3>
-                                            <ul class="list-unstyled">
-                                                <!-- Presentation item -->
-                                                @forelse ($comments as $comment)
-                                                    <li class="d-md-table mb-4 w-100 border-bottom hover-shadow">
-                                                        <div
-                                                            class="d-md-table-cell text-center p-4 text-white mb-4 mb-md-0">
-                                                            <img src="{{ $comment->user->PictureFreelancer }}"
-                                                                class="rounded-circle" width="70px" height="70px">
-                                                        </div>
-                                                        <div
-                                                            class="d-md-table-cell px-4 vertical-align-middle mb-4 mb-md-0">
-                                                            <a href="{{ route('user.view.profile', $comment->user->slug) }}"
-                                                                class="h4 mb-3 d-block">
-                                                                {{ $comment->user->name }}
-                                                                <p class="float-right">
-                                                                    {{ $comment->created_at->diffForHumans() }}
-                                                                </p>
-                                                            </a>
-                                                            <p class="mb-0">
-                                                                {{ $comment->comment }}
-                                                            </p>
-                                                        </div>
-
-                                                    </li>
-                                                @empty
-                                                    <div class="alert alert-danger m-auto w-100 text-center fw-bold ">
-                                                        {{ 'There Are No Offers ' }} <i class="ti-face-sad"></i>
-                                                    </div>
-                                                @endforelse
-                                            </ul>
-                                            {{ $comments->links() }}
-                                        </div>
-                                    </div>
-                                </div>
-                            </section>
-                            <!-- /Project Presentations -->
                         </div>
                     </div>
                 </div>
@@ -217,4 +173,45 @@
         </div>
     </section>
     <!-- /Project details -->
+
+    {{-- Project Presentations --}}
+    <section class="section pt-3">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <h3 class="mb-3">{{ __('Presentations') }}</h3>
+                    <ul class="list-unstyled">
+                        <!-- Presentation item -->
+                        @forelse ($comments as $comment)
+                            <li class="d-md-table mb-4 w-100 border-bottom hover-shadow">
+                                <div class="d-md-table-cell text-center p-4 text-white mb-4 mb-md-0">
+                                    <img src="{{ $comment->user->PictureFreelancer }}" class="rounded-circle"
+                                        width="70px" height="70px">
+                                </div>
+                                <div class="d-md-table-cell px-4 vertical-align-middle mb-4 mb-md-0">
+                                    <a href="{{ route('user.view.profile', $comment->user->slug) }}"
+                                        class="h4 mb-3 d-block">
+                                        {{ $comment->user->name }}
+                                        <p class="float-right">
+                                            {{ $comment->created_at->diffForHumans() }}
+                                        </p>
+                                    </a>
+                                    <p class="mb-0">
+                                        {{ $comment->comment }}
+                                    </p>
+                                </div>
+
+                            </li>
+                        @empty
+                            <div class="alert alert-danger m-auto w-100 text-center fw-bold ">
+                                {{ 'There Are No Offers ' }} <i class="ti-face-sad"></i>
+                            </div>
+                        @endforelse
+                    </ul>
+                    {{ $comments->links() }}
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- /Project Presentations -->
 @endsection

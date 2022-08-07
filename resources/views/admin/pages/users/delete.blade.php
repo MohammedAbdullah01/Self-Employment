@@ -1,7 +1,7 @@
 <!-- Button trigger modal -->
 <button type="button" class="btn btn-outline-danger btn-sm " data-bs-toggle="modal"
     data-bs-target="#delete_user{{ $user->id }}">
-    {{ __('Delate') }}
+    <i class="bi bi-trash-fill"></i>
 </button>
 
 <!-- Modal -->

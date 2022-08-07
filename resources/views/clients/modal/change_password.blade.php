@@ -9,8 +9,8 @@
         <div class="modal-content p-3 mb-2 bg-white text-primary">
             <div class="modal-header">
                 <h5 class="modal-title" id="exampleModalLabel">{{ __('Change Password') }}</h5>
-                <button type="button" class="btn-close btn btn-light" data-bs-dismiss="modal"
-                    aria-label="Close"><i class="ti-close"></i></button>
+                <button type="button" class="btn-close btn btn-light" data-bs-dismiss="modal" aria-label="Close"><i
+                        class="ti-close"></i></button>
             </div>
             <div class="modal-body">
                 <!-- Change Password Form -->

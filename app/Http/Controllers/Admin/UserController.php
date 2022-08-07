@@ -3,32 +3,24 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\User;
-use Brian2694\Toastr\Facades\Toastr;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\File;
+use App\Repositories\Interfaces\DashboardRepository;
 
 class UserController extends Controller
 {
+    private $DashboaedRepo;
+
+    public function __construct(DashboardRepository $DashboaedRepo)
+    {
+        $this->DashboaedRepo = $DashboaedRepo;
+    }
     public function index()
     {
-        $users = User::withCount('latestwork','comments')->latest()->paginate();
-
-
-            return view('admin.pages.users.index' , compact('users'));
-
+        $users = $this->DashboaedRepo->getAllUsers();
+        return view('admin.pages.users.index', compact('users'));
     }
 
     public function destroy($id)
     {
-        $user = User::findOrFail($id);
-        $user->delete();
-        $photo_path = public_path('storage/users/' . $user->avatar);
-
-        if (File::exists($photo_path)) {
-            File::delete($photo_path);
-        }
-        Toastr::success('Successfully Deleted User :) ');
-        return redirect()->back();
+        return  $this->DashboaedRepo->destroyOneUser($id);
     }
 }

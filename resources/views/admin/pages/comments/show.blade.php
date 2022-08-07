@@ -1,7 +1,7 @@
 <!-- Button trigger modal -->
 <button type="button" class="btn btn-outline-info btn-sm " data-bs-toggle="modal"
     data-bs-target="#show_comment{{ $comment->id }}">
-    {{ __('Show') }}
+    <i class="bi bi-eye-fill"></i>
 </button>
 
 <!-- Modal -->

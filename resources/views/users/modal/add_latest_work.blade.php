@@ -1,6 +1,5 @@
 <!-- Button trigger modal -->
-<button type="button" class="btn btn-outline-primary btn-sm me-md-2" data-bs-toggle="modal"
-    data-bs-target="#add_gallery">
+<button type="button" class="btn btn-outline-primary btn-sm me-md-2" data-bs-toggle="modal" data-bs-target="#add_gallery">
     {{ __('Add Work') }}
 </button>
 
@@ -19,15 +18,17 @@
                 </div>
                 <div class="modal-body ">
 
-                    <x-form.input-lable-error    lable="Project Title"       name="title"
+                    <x-form.input-lable-error lable="Project Title" name="title"
                         placeholder="Write The title Of The project At Least 5 Characters..." />
 
+                    <x-form.select-lable-error lable="Project Category" name="category_id" :options="$categories" />
+
                     <x-form.textarea-lable-error lable="Project Description" name="description"
-                        placeholder="Write The Description Of The project At Least 10 Characters..." rows="6"  />
+                        placeholder="Write The Description Of The project At Least 10 Characters..." rows="6" />
 
-                    <x-form.input-lable-error    lable="Project Main Image"  name="main_photo" type="file" />
+                    <x-form.input-lable-error lable="Project Main Image" name="main_photo" type="file" />
 
-                    <x-form.input-lable-error    lable="Project Sub Images"  name='sub_images[]' multiple type="file" />
+                    <x-form.input-lable-error lable="Project Sub Images" name='sub_images[]' multiple type="file" />
 
                 </div>
                 <div class="modal-footer">

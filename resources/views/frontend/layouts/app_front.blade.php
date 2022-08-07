@@ -19,7 +19,9 @@
 
     <!-- ** Plugins Needed for the Project ** -->
     <!-- Bootstrap -->
-    <link rel="stylesheet" href="{{ asset('frontend/plugins/bootstrap/bootstrap.min.css') }}">
+    <!-- CSS only -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
+    {{-- <link rel="stylesheet" href="{{ asset('frontend/plugins/bootstrap/bootstrap.min.css') }}"> --}}
     <!-- slick slider -->
     <link rel="stylesheet" href="{{ asset('frontend/plugins/slick/slick.css') }}">
     <!-- themefy-icon -->
@@ -50,7 +52,7 @@
 
     <!-- preloader start -->
     <div class="preloader">
-        <img src="{{asset('frontend/images/preloader.gif')}}" alt="preloader">
+        <img src="{{ asset('frontend/images/preloader.gif') }}" alt="preloader">
     </div>
     <!-- preloader end -->
 

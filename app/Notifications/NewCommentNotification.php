@@ -61,11 +61,11 @@ class NewCommentNotification extends Notification
         $body = 'On The Project : '. $this->comment->project->title;
 
         return [
-            'title' =>'Submitted by : ',
-            'name'  =>$name ,
-            'body'  =>$body,
-            'img'  =>$this->freelancer->PictureFreelancer,
-            'url'   => route('front.show.project' , $this->comment->project->title),
+            'title' => 'Submitted by : ',
+            'name'  => $name ,
+            'body'  => $body,
+            'img'   => $this->freelancer->avatar,
+            'url'   => route('front.show.project' , $this->comment->project->slug),
         ];
     }
 

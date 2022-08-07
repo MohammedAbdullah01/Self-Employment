@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
+use App\Models\Categorie;
 use Illuminate\Support\Facades\Auth;
 use Brian2694\Toastr\Facades\Toastr;
 use Illuminate\Http\Request;
@@ -31,7 +32,9 @@ class ProfileController extends Controller
 
         $commented_projects =  $user->commendProjects()->withCount('comments')->latest()->paginate();
 
-        return view('users.profile', compact('user', 'latestwork', 'commented_projects'));
+        $categories         =  Categorie::pluck('name', 'id')->toArray();
+
+        return view('users.profile', compact('user', 'latestwork', 'commented_projects' , 'categories'));
     }
 
 

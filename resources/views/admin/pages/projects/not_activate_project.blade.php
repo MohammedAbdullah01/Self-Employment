@@ -19,7 +19,7 @@
 
         <section class="section profile">
             <div class="row">
-                <div class="card  mt-5 ">
+                <div class="card mt-5 ">
                     <div class="card-header">
                         <h4 class="nav-item ">
                             {{ __('Latest Projects') }}
@@ -34,14 +34,14 @@
                         <div class="row row-cols-1 row-cols-md-2 g-4">
 
                             @forelse ($projects_not_activate as $project)
-                                <div class="col-md-3">
+                                <div class="col-lg-4">
                                     <div class="card">
 
                                         <div class="card-body">
                                             <span class="float-end badge rounded-pill text-bg-primary">
                                                 {{ $project->created_at->diffForhumans() }}
                                             </span>
-                                            <a class="nav-link" href="{{ route('admin.project.show', $project->title) }}">
+                                            <a class="nav-link" href="{{ route('admin.project.show', $project->slug) }}">
                                                 <h5 class="card-title">{{ $project->title }}
                                             </a>
 
@@ -95,32 +95,34 @@
                                         <div class="card-footer">
                                             <small>{{ 'Comments: ' . $project->comments()->count() }}</small>
                                             <small class="float-end">{{ $project->created_at->diffForHumans() }}</small>
+
+                                            <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+
+                                                <form
+                                                    action="{{ route('admin.project.activat', $project->id) }}"
+                                                    method="post">
+                                                    @csrf
+                                                    @method('PUT')
+                                                    <button type="submit" class="btn btn-outline-warning btn-sm">
+                                                        <i class="bi bi-check2-square"></i>
+                                                    </button>
+                                                </form>
+
+                                                <form
+                                                    action="{{ route('admin.project.delete', $project->id) }}"
+                                                    method="post">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button class="btn btn-outline-danger btn-sm " type="submit">
+                                                        <i class="bi bi-trash-fill"></i>
+                                                    </button>
+                                                </form>
+
+                                            </div>
                                         </div>
 
                                         {{-- <div class="card-footer"> --}}
-                                        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                                            
-                                            <form class="d-inline-block"
-                                                action="{{ route('admin.project.activat', $project->id) }}"
-                                                method="post">
-                                                @csrf
-                                                @method('PUT')
-                                                <button type="submit" class="btn btn-outline-warning btn-sm">
-                                                    <i class="bi bi-check2-square"></i>
-                                                </button>
-                                            </form>
 
-                                            <form class="d-inline-block"
-                                                action="{{ route('client.delete.project', $project->id) }}"
-                                                method="post">
-                                                @csrf
-                                                @method('DELETE')
-                                                <button class="btn btn-outline-danger btn-sm " type="submit">
-                                                    <i class="bi bi-trash-fill"></i>
-                                                </button>
-                                            </form>
-
-                                        </div>
                                     </div>
                                 </div>
                             @empty

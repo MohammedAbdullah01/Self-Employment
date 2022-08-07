@@ -4,54 +4,48 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Project;
-use Brian2694\Toastr\Facades\Toastr;
-use Illuminate\Http\Request;
+use App\Repositories\Interfaces\ProjectRepository;
 
 class ProjectController extends Controller
 {
+    private $projectRepo;
+
+    public function __construct(ProjectRepository $projectRepo)
+    {
+        $this->projectRepo = $projectRepo;
+    }
+
+
     public function projectActivte()
     {
-        $projects_activate = Project::where('activate' , 1)->latest()->paginate();
 
-            return view('admin.pages.projects.activate_project' , compact('projects_activate'));
+        return view('admin.pages.projects.activate_project', ['projects_activate' => $this->projectRepo->getProjectActivte()]);
     }
 
 
     public function projectNotActivte()
     {
-        $projects_not_activate = Project::where('activate' , 0)->latest()->paginate();
 
-            return view('admin.pages.projects.not_activate_project' , compact('projects_not_activate'));
+        return view('admin.pages.projects.not_activate_project', ['projects_not_activate' => $this->projectRepo->getProjectNotActivte()]);
     }
 
 
-    public function showProject($title)
+    public function showProject($slug)
     {
-        $project = Project::with('comments')->where('title' , $title)->firstOrFail();
+        $project = $this->projectRepo->getOneProject($slug);
 
         $comments = $project->comments()->latest()->paginate();
 
-            return view('admin.pages.projects.show_project' , compact('project' , 'comments'));
+        return view('admin.pages.projects.show_project', compact('project', 'comments'));
     }
 
-    public function storeActivatProject($id)
+    public function storeActivatProject($project)
     {
-        $projects_activate = Project::where('id' ,  $id)->update([
-            'activate' => 1
-        ]);
-        Toastr::success('Succrssfully Activat Project :)');
-        return redirect()->back();
-
+        return  $this->projectRepo->updateActivatProject($project);
     }
 
-    public function destroy($id)
+    public function destroy(Project $project)
     {
-        $project = Project::findOrFail($id);
-        $project->delete();
-
-        Toastr::success('Succrssfully Delete Project :)');
-        return redirect()->back();
+        return $this->projectRepo->destroy($project);
     }
-
-
 }

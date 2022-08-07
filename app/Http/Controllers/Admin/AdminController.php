@@ -14,6 +14,7 @@ class AdminController extends Controller
         return view('admin.login');
     }
 
+
     public function storeLogin(Request $request)
     {
         $request->validate([
@@ -21,17 +22,18 @@ class AdminController extends Controller
             'password' => 'required|string|min:5|max:30',
         ]);
 
-        $admin = $request->only(['email','password']);
+        $admin = $request->only(['email', 'password']);
         // dd(Auth::guard('web')->attempt($admin));
 
-        if(Auth::guard('admin')->attempt($admin)){
+        if (Auth::guard('admin')->attempt($admin)) {
             Toastr::success('Login Admin Successfully :)');
             return redirect()->route('admin.dashboard');
-        }else{
+        } else {
             Toastr::error('incorrect Username Or Password');
             return redirect()->back();
         }
     }
+
 
     public function destroy(Request $request)
     {

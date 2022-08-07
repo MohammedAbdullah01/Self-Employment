@@ -50,19 +50,18 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::get('show/project/{title}'        , [ProjectController::class , 'showProject'])
             ->name('project.show');
 
-        Route::put('activate/project/{id}'        , [ProjectController::class , 'storeActivatProject'])
+        Route::put('activate/{project}/project'  , [ProjectController::class , 'storeActivatProject'])
             ->name('project.activat');
 
-        Route::delete('project/delete/{id}'   ,[ProjectController::class , 'destroy'])
+        Route::delete('project/{project}/delete' ,[ProjectController::class , 'destroy'])
             ->name('project.delete');
-
 
         // ====== End Pages Projects ======
 
-        Route::get('latestworks/{name}'          , [LatestWorkUser::class , 'latestWorksUser'])
-            ->name('user.latestworks');
+        Route::get('latestworks'                 , [LatestWorkUser::class , 'latestWorks'])
+            ->name('latestworks');
 
-        Route::delete('latestwork/{id}'          , [LatestWorkUser::class , 'destroyLatestWork'])
+        Route::delete('latestwork/{latestwork}'  , [LatestWorkUser::class , 'destroyLatestWork'])
             ->name('latestwork.delete');
 
         // ====== End Pages Latestworks ======
@@ -70,14 +69,14 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::get('comments'                    , [CommentController::class , 'index'])
             ->name('comment.all');
 
-        Route::delete('user/comment/{id}'        , [CommentController::class , 'destroy'])
+        Route::delete('user/{comment}/comment'   , [CommentController::class , 'destroy'])
             ->name('comment.delete');
         // ====== End Pages Comments ======
 
         Route::get('users'                       , [UserController::class , 'index'])
             ->name('users.all');
 
-        Route::delete('delete/user/{id}'         , [UserController::class , 'destroy'])
+        Route::delete('delete/{user}/user'       , [UserController::class , 'destroy'])
             ->name('user.delete');
 
         // ====== End Pages Users ======
@@ -85,10 +84,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::get('clients'                     , [ClientController::class , 'index'])
             ->name('clients.all');
 
-        Route::get('projects/client/{name}'      , [ClientController::class , 'showProjectsClient'])
-        ->name('client.projects');
-
-        Route::delete('delete/client/{id}'       , [ClientController::class , 'destroy'])
+        Route::delete('delete/{client}/client'   , [ClientController::class , 'destroy'])
             ->name('client.delete');
 
         // ====== End Pages Clients ======

@@ -1,7 +1,7 @@
 <!-- Button trigger modal -->
 <button type="button" class="btn btn-outline-danger btn-sm " data-bs-toggle="modal"
     data-bs-target="#delete_client{{ $client->id }}">
-    {{ __('Delate') }}
+    <i class="bi bi-trash"></i>
 </button>
 
 <!-- Modal -->
@@ -15,7 +15,7 @@
                     aria-label="Close"></button>
             </div>
 
-            <form action="{{ route('admin.client.delete', $client->id) }}" method="post">
+            <form action="{{ route('admin.client.delete', $client) }}" method="post">
                 @csrf
                 @method('DELETE')
 

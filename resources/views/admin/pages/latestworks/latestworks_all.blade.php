@@ -1,5 +1,5 @@
 @extends('admin.layouts.app')
-@section('title', 'Elancer | Clients')
+@section('title', 'Latest Works')
 
 @section('content')
 
@@ -9,12 +9,12 @@
     <main id="main" class="main">
 
         <div class="pagetitle">
-            <h1>All Clients</h1>
+            <h1>All Latest Works</h1>
             <nav>
                 <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">Dashboard</a></li>
-                    <li class="breadcrumb-item">{{ 'Clients' }}</li>
-                    {{-- <li class="breadcrumb-item active">Data</li> --}}
+                    <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">{{ __('Dashboard') }}</a></li>
+                    <li class="breadcrumb-item">{{ __('users') }}</li>
+                    <li class="breadcrumb-item ">{{ __('Latest Works') }}</li>
                 </ol>
             </nav>
         </div><!-- End Page Title -->
@@ -25,7 +25,6 @@
 
                     <div class="card">
                         <div class="card-body">
-                            {{-- @include('admin.pages.categories.create') --}}
 
                             <!-- Table with stripped rows -->
                             <table class="table datatable">
@@ -34,19 +33,19 @@
                                         <th>#</th>
 
                                         <th class="text-center">
-                                            {{ 'Image' }}
+                                            {{ 'Main Photo' }}
                                         </th>
 
                                         <th>
-                                            {{ 'Name' }}
+                                            {{ 'title' }}
+                                        </th>
+
+                                        <th colspan="5">
+                                            {{ 'Description' }}
                                         </th>
 
                                         <th>
-                                            {{ 'Email' }}
-                                        </th>
-
-                                        <th>
-                                            {{ 'Projects' }}
+                                            {{ 'User' }}
                                         </th>
 
                                         <th>
@@ -59,36 +58,34 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @forelse ($clients as $client)
+                                    @forelse ($latestworks as $latestwork)
                                         <tr>
                                             <td>
-                                                {{ $client->id }}
+                                                {{ $latestwork->id }}
                                             </td>
                                             <td class="text-center">
-                                                <img src="{{ $client->PictureClient }}" width="70px" height="50px">
+                                                <img src="{{ $latestwork->pictureLatestWorks }}" width="100px" height="70px">
                                             </td>
 
                                             <td>
-                                                {{ $client->name }}
+                                                {{ $latestwork->title }}
+                                            </td>
+
+                                            <td colspan="5">
+                                                {{ Str::limit($latestwork->description, 15, '...') }}
                                             </td>
 
                                             <td>
-                                                {{ $client->email }}
+                                                {{ $latestwork->user->name }}
                                             </td>
 
                                             <td>
-                                                <a href="{{ route('admin.client.projects', $client->name) }}">
-                                                    {{ $client->projects_count }}
-                                                </a>
-                                            </td>
-
-                                            <td>
-                                                {{ $client->created_at->diffForhumans() }}
+                                                {{ $latestwork->created_at->diffForhumans() }}
                                             </td>
 
                                             <td class="text-center">
 
-                                                @include('admin.pages.clients.delete')
+                                                @include('admin.pages.latestworks.delete')
 
                                             </td>
                                         </tr>
@@ -96,7 +93,7 @@
                                         <td colspan="12">
                                             <div class="alert alert-danger text-center w-50 m-auto">
                                                 <b>
-                                                    {{ __('There Are No Clients !!') }}
+                                                    {{ __('There Are No latestworks !!') }}
                                                 </b>
                                             </div>
                                         </td>
@@ -106,7 +103,7 @@
                             </table>
                             <span class="float-end">
 
-                                {{ $clients->links() }}
+                                {{ $latestworks->links() }}
                             </span>
 
                         </div>

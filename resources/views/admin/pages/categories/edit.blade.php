@@ -1,7 +1,7 @@
 <!-- Button trigger modal -->
 <button type="button" class="btn btn-outline-success btn-sm " data-bs-toggle="modal"
     data-bs-target="#edit_category{{ $cate->id }}">
-    {{ __('Edit') }}
+    <i class="bi bi-pencil-square"></i>
 </button>
 
 <!-- Modal -->

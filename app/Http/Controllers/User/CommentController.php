@@ -6,9 +6,11 @@ use App\Http\Controllers\Controller;
 use App\Models\Comment;
 use App\Models\Project;
 use App\Repositories\Interfaces\CommentRepository;
+use Brian2694\Toastr\Facades\Toastr;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
-class CommentController extends Controller
+class CommentController extends Controller 
 {
 
     private $commentRepo;
@@ -16,16 +18,6 @@ class CommentController extends Controller
     public function __construct(CommentRepository $commentRepo)
     {
         $this->commentRepo = $commentRepo;
-    }
-
-
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
     }
 
 
@@ -43,6 +35,10 @@ class CommentController extends Controller
 
     public function destroy(Comment $comment)
     {
+        if ($comment->user_id !== Auth::guard('web')->id()) {
+            Toastr::error("You Can't Edit a Call Yhat's Not Yours ");
+            return redirect()->back();
+        }
         return  $this->commentRepo->destroy($comment);
     }
 }

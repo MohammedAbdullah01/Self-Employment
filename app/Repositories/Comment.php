@@ -11,9 +11,20 @@ use Illuminate\Support\Facades\Auth;
 
 class Comment implements CommentRepository
 {
+    protected $ModelsComment;
+
+    public function __construct(ModelsComment $ModelsComment)
+    {
+        $this->ModelsComment = $ModelsComment;
+    }
+
+
     public function index()
     {
+        $comments = $this->ModelsComment::with('project', 'user')->latest()->paginate();
+        return $comments;
     }
+
 
     public function store($request, $project_Id)
     {
@@ -30,7 +41,7 @@ class Comment implements CommentRepository
         }
 
 
-        $comment =  ModelsComment::create([
+        $comment =  $this->ModelsComment::create([
             'project_id' => $request->post('project_id'),
             'user_id'    => Auth::guard('web')->id(),
             'comment'    => $request->post('comment'),
@@ -41,6 +52,7 @@ class Comment implements CommentRepository
         Toastr::success("The Comment Was Successfully Stored :) ");
         return redirect()->back();
     }
+
 
     public function update($request, $comment)
     {
@@ -62,12 +74,10 @@ class Comment implements CommentRepository
         return redirect()->back();
     }
 
+
     public function destroy($comment)
     {
-        if ($comment->user_id !== Auth::guard('web')->id()) {
-            Toastr::error("You Can't Edit a Call Yhat's Not Yours ");
-            return redirect()->back();
-        }
+        // $comment =  $this->ModelsComment::findOrFail($comment);
         $comment->forcedelete();
         Toastr::success("Successfully Deleted Comment :)");
         return redirect()->back();

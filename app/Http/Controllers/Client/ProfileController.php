@@ -7,25 +7,24 @@ use App\Models\Categorie;
 use Illuminate\Http\Request;
 use App\Models\Client;
 use App\Models\Project;
-use App\Models\Tag;
 use App\Repositories\Interfaces\ProfileRepository;
+use App\Repositories\Project as RepositoriesProject;
 use Brian2694\Toastr\Facades\Toastr;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\File;
-use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
-use Illuminate\Support\Str;
 
 class ProfileController extends Controller
 {
 
     private $clientRepo;
+    private $projectRepo;
     private $client;
 
-    public function __construct(ProfileRepository $clientRepo, Client $client)
+    public function __construct(ProfileRepository $clientRepo, RepositoriesProject $projectRepo, Client $client)
     {
-        $this->clientRepo = $clientRepo;
-        $this->client     = $client;
+        $this->clientRepo   = $clientRepo;
+        $this->projectRepo  = $projectRepo;
+        $this->client       = $client;
     }
 
     protected function categories()
@@ -39,22 +38,18 @@ class ProfileController extends Controller
 
         $projects =  $client->projects()->withcount('comments')->latest()->paginate(8);
 
-
-        $project    = new Project();
-        $budgets    = Project::budgets();
-        $types      = Project::types();
-        $categories = $this->categories();
-        $tags       = Tag::all();
-
-        return view('clients.profile', compact(
-            'client',
-            'projects',
-            'project',
-            'budgets',
-            'types',
-            'categories',
-            'tags',
-        ));
+        return view(
+            'clients.profile',
+            [
+                'client'     => $client,
+                'projects'   => $projects,
+                'project'    => new Project(),
+                'budgets'    => $this->projectRepo->getBudgets(),
+                'types'      => $this->projectRepo->getTypes(),
+                'categories' => $this->categories(),
+                'tags'       => [],
+            ]
+        );
     }
 
 

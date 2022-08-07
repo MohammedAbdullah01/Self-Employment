@@ -21,6 +21,9 @@
                         <x-form.input-lable-error lable="Project Title" name="title" :value="$work->title"
                             placeholder="Write The title Of The project At Least 5 Characters..." />
 
+                        <x-form.select-lable-error lable="Project Category" name="category_id" :options="$categories"
+                            :selected="$work->category_id" />
+
                         <x-form.textarea-lable-error lable="Project Description" name="description"
                             placeholder="Write The Description Of The project At Least 10 Characters..." rows="6"
                             :value="$work->description" />
@@ -60,6 +63,7 @@
                     </div>
                 </form>
             </div>
+
         </div>
     </div>
 </div>

@@ -3,10 +3,14 @@
 namespace App\Providers;
 
 use App\Repositories\Auth;
+use App\Repositories\Category;
 use App\Repositories\Comment;
+use App\Repositories\Dashboard;
 use App\Repositories\LatesWork;
 use App\Repositories\Interfaces\AuthRepository;
+use App\Repositories\Interfaces\CategoryRepository;
 use App\Repositories\Interfaces\CommentRepository;
+use App\Repositories\Interfaces\DashboardRepository;
 use App\Repositories\Interfaces\LatesWorkRepository;
 use App\Repositories\Interfaces\ProfileRepository;
 use App\Repositories\Interfaces\ProjectRepository;
@@ -32,6 +36,10 @@ class ServiceRepositoryProvider extends ServiceProvider
         $this->app->bind(CommentRepository::class     , Comment::class);
 
         $this->app->bind(ProjectRepository::class     , Project::class);
+
+        $this->app->bind(CategoryRepository::class    , Category::class);
+
+        $this->app->bind(DashboardRepository::class   , Dashboard::class);
     }
 
     /**

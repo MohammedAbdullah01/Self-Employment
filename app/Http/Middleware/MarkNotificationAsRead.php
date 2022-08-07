@@ -25,7 +25,7 @@ class MarkNotificationAsRead
 
             if($notification){
                 $notification->markAsRead();
-                $notification->delete();
+                // $notification->delete();
 
 
             }
@@ -33,3 +33,4 @@ class MarkNotificationAsRead
         return $next($request);
     }
 }
+

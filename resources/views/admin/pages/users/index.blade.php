@@ -83,7 +83,7 @@
                                             </td>
 
                                             <td>
-                                                <a href="{{ route('admin.user.latestworks', $user->name) }}">
+                                                <a href="{{ route('user.view.profile', $user->slug) }}">
                                                     {{ $user->latestwork_count }}
                                                 </a>
                                             </td>

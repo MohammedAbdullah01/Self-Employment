@@ -19,6 +19,7 @@ class  Profile implements ProfileRepository
         return $user;
     }
 
+
     public function updateProfile($ModelName, $guardName,  $request, $Path_Folder_Avatar, $Forgin_Key)
     {
         $user = $ModelName::findOrFail(Auth::guard($guardName)->id());
@@ -47,7 +48,8 @@ class  Profile implements ProfileRepository
         return redirect()->back();
     }
 
-    public function changePassword($request , $ModelName , $GuardName , $RedirectRoute)
+
+    public function changePassword($request, $ModelName, $GuardName, $RedirectRoute)
     {
         $validator = Validator::make(
             $request->all(),

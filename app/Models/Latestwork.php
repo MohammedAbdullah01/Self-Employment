@@ -12,7 +12,7 @@ class Latestwork extends Model
     use HasFactory;
     protected $fillable =
     [
-        'user_id', 'title', 'main_photo', 'description'
+        'user_id', 'title', 'category_id' ,'main_photo', 'description'
     ];
 
     public function user()
@@ -23,6 +23,11 @@ class Latestwork extends Model
     public function photos()
     {
         return $this->hasMany(Businessphotos::class, 'latestwork_id', 'id');
+    }
+
+    public function category()
+    {
+        return $this->belongsTo(Categorie::class);
     }
 
     public function getpictureLatestWorksAttribute()

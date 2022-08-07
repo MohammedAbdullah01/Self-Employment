@@ -20,16 +20,20 @@ use Illuminate\Support\Facades\Route;
 
 Route::name('front.')->group(function () {
 
-    Route::get('/' , [HomeController::class , 'index'])->name('home');
+    Route::get('/'                              , [HomeController::class, 'index'])->name('home');
 
-    Route::get('Browse/projects' , [HomeController::class , 'browseProjects'])
+    Route::get('Browse/projects'                , [HomeController::class, 'browseProjects'])
         ->name('projects');
 
-    Route::get('show/project/{title}' , [HomeController::class , 'show'])
+    Route::get('find/freelancers'               , [HomeController::class, 'getFindFreelancers'])
+        ->name('freelancers');
+
+    Route::get('show/projects/In/{slug}'        , [HomeController::class, 'showProjectsInCategory'])
+        ->name('show.projects.in.category');
+
+    Route::get('show/project/{title}'           , [HomeController::class, 'show'])
         ->name('show.project')->middleware('markAs_Read_Notification');
+
+    Route::get('contact'                        , [HomeController::class, 'showContact'])
+        ->name('show.contact');
 });
-
-
-
-
-
